@@ -2,24 +2,31 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/alpine
 {
   "name": "Go-EDA",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "customizations": {
     "vscode": {
       "extensions": [
-				"golang.go",
-				"humao.rest-client",
-				"sleistner.vscode-fileutils"
-			]
+        "golang.go",
+        "humao.rest-client",
+        "sleistner.vscode-fileutils"
+      ]
     }
   },
-  "forwardPorts": [
-		9090
-	],
+  "forwardPorts": [9090, 9000, 2181, 9092],
   "portsAttributes": {
     "9090": {
-      "label": "api"
+      "label": "app"
+    },
+    "2181": {
+      "label": "zookeeper"
+    },
+    "9092": {
+      "label": "kafka"
+    },
+    "9000": {
+      "label": "kafdrop"
     }
   }
 }
